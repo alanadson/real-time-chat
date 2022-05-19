@@ -10,10 +10,11 @@ const { username, room } = Qs.parse(location.search, {
 const socket = io();
 
 // join chat
-socket.emit("join_room", { username, room });
+socket.emit("join_room", { username, room }, outputRoom(room));
 
 // message from server
 socket.on("message", (message) => {
+  console.log(message);
   outputMessage(message);
 
   // scroll down
@@ -45,16 +46,13 @@ function outputMessage(message) {
     </p>`;
   chatMessages.appendChild(div);
 
-  const li = document.createElement("li");
-  li.classList.add("message");
-  li.innerHTML = '<ul id="users-list"> <li>test</li></ul>';
-  chatMessagess.appendChild(li);
+  // testing
+  //   const li = document.createElement("li");
+  //   li.classList.add("message");
+  //   li.innerHTML = "test";
+  //   chatMessagess.appendChild(li);
+}
 
-  //   const divv = document.createElement("div");
-  //   divv.classList.add("message");
-  //   divv.innerHTML = `<p class="meta">${message.user} <span>${message.time}</span></p>
-  //     <p class="text">
-  //         ${message.text}
-  //     </p>`;
-  //   chatMessages.appendChild(divv);
+function outputRoom(room) {
+  document.getElementById("room-name").innerHTML = `${room}`;
 }
