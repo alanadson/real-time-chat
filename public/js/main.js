@@ -10,7 +10,7 @@ const { username, room } = Qs.parse(location.search, {
 const socket = io();
 
 // join chat
-socket.emit("join_room", { username, room }, outputRoom(room));
+socket.emit("join_room", { username, room }, outputRoom(room, username));
 
 // message from server
 socket.on("message", (message) => {
@@ -47,12 +47,17 @@ function outputMessage(message) {
   chatMessages.appendChild(div);
 
   // testing
-  //   const li = document.createElement("li");
-  //   li.classList.add("message");
-  //   li.innerHTML = "test";
-  //   chatMessagess.appendChild(li);
+  const li = document.createElement("li");
+  li.classList.add("message");
+  li.innerHTML = "test";
+  chatMessagess.appendChild(li);
 }
 
-function outputRoom(room) {
+function outputRoom(room, username) {
   document.getElementById("room-name").innerHTML = `${room}`;
+
+  //   const li = document.createElement("li");
+  //   li.classList.add("message");
+  //   li.innerHTML = `${username}`;
+  //   chatMessagess.appendChild(li);
 }
